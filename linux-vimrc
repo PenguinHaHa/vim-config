@@ -1,0 +1,64 @@
+"show which line is modified
+set report=0
+"show matched bracket
+set showmatch
+"show matched character
+set incsearch
+"obay previous indent
+set autoindent
+"C style indent
+set smartindent
+set cindent
+"show line num
+set nu
+"show status line
+set laststatus=2
+"show context during input
+set incsearch
+"high light found text
+set hlsearch
+"auto load when file is modified
+set autoread
+"shift
+set shiftwidth=2
+"tab
+set tabstop=2
+set softtabstop=2
+set expandtab
+
+"Vundle
+"be iMproved
+set nocompatible 
+"required
+filetype off  
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+"let vundle manage vundle
+"required!
+Bundle 'gmarik/vundle'
+
+"add plugin using vim-scripts
+Bundle 'taglist.vim'
+Bundle 'winmanager'
+Bundle 'snipMate'
+Bundle 'neocomplcache'
+Bundle 'grep.vim'
+
+"required!
+filetype plugin indent on
+
+"taglist
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+
+"win manager
+let g:winManagerWindowLayout='FileExplorer|TagList'
+nmap wm :WMToggle<cr>
+
+"neocomplcache
+let g:neocomplcache_enable_at_startup=1
+
+"grep.vim
+nnoremap <silent> <F3> :Grep<CR>
