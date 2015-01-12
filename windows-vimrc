@@ -1,0 +1,118 @@
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+"show which line is modified
+set report=0
+"show matched bracket
+set showmatch
+"show matched character
+set incsearch
+"obay previous indent
+set autoindent
+"C style indent
+set smartindent
+set cindent
+"show line num
+set nu
+"show status line
+set laststatus=2
+"show context during input
+set incsearch
+"high light found text
+set hlsearch
+"auto load when file is modified
+set autoread
+"shift
+set shiftwidth=2
+"tab
+set tabstop=2
+set softtabstop=2
+set expandtab
+"scheme 
+colorscheme skittle_dark 
+"set font
+set guifont=Courier_New:h14
+
+"window gui max size
+"if has('gui_running') && has("win32")
+"    au GUIEnter * simalt ~x
+"endif
+
+"full screen
+map <F10> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
+
+"scroll screen
+noremap <C-J> <C-E>
+noremap <C-K> <C-Y>
+
+
+"Vundle
+"be iMproved
+set nocompatible 
+"required
+filetype off  
+
+set rtp+=$VIM/vimfiles/bundle/vundle/
+call vundle#rc('$VIM/vimfiles/bundle/')
+
+"let vundle manage vundle
+"required!
+Bundle 'gmarik/vundle'
+
+"add plugin using vim-scripts
+Bundle 'taglist.vim'
+Bundle 'winmanager'
+Bundle 'snipMate'
+Bundle 'neocomplcache'
+Bundle 'grep.vim'
+Bundle 'TogFullscreen.vim'
+
+"required!
+filetype plugin indent on
+
+"taglist
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+
+"win manager
+let g:winManagerWindowLayout='FileExplorer|TagList'
+nmap wm :WMToggle<cr>
+
+"neocomplcache
+let g:neocomplcache_enable_at_startup=1
+
+"grep.vim
+"let Grep_Path='C:\Program Files (x86)\GnuWin32\bin\grep.exe'
+"let Fgrep_Path='C:\Program Files (x86)\GnuWin32\bin\fgrep.exe'
+"let Egrep_Path='C:\Program Files (x86)\GnuWin32\bin\egrep.exe'
+"let Agrep_Path='C:\Program Files (x86)\GnuWin32\bin\agrep.exe'
+"let Grep_Find_Path='C:\Program Files (x86)\GnuWin32\bin\find.exe'
+"let Grep_Xargs_Path='C:\Program Files (x86)\GnuWin32\bin\xargs.exe'
+nnoremap <silent> <F3> :Grep<CR>
